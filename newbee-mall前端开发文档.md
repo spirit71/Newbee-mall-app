@@ -22,6 +22,7 @@ grammar_cjkRuby: true
 
 
 ![注册](./images/注册.png)
+
 首页
 
 ![首页](./images/首页.png)
@@ -37,9 +38,11 @@ grammar_cjkRuby: true
 购物车1
 
 ![购物车1](./images/购物车1.png)
+
 商品详情
 
 ![商品详情](./images/商品详情.png)
+
 生成订单
 
 ![生成订单1](./images/生成订单_1.png)
