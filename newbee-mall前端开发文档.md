@@ -1,6 +1,5 @@
 ---
 title: 开发文档-mall
-category: /小书匠/日记/2023-07
 emoji: "😔"
 grammar_cjkRuby: true
 ---
