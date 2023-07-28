@@ -1,6 +1,5 @@
 ---
 title: 开发文档-mall
-tags: 新建,模板,小书匠
 category: /小书匠/日记/2023-07
 emoji: "😔"
 grammar_cjkRuby: true
