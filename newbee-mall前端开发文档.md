@@ -1,6 +1,6 @@
 ---
 title: 开发文档-mall
-emoji: "😔"
+emoji: 😀
 grammar_cjkRuby: true
 ---
 
