@@ -188,7 +188,7 @@ export function register(params) {
 }
 ```
 
-登录界面对用户输入密码进行MD5解析获取。根据state.type的值来显示登录或注册内容。其中，使用了vant库的van-form和van-field组件来构建表单，v-model指令用于实现表单字段与state中的数据绑定，:rules属性可以设置表单字段的验证规则。
+登录界面对用户输入密码进行MD5解析获取。根据state.type的值来显示登录或注册内容。
 ``` 
 if (state.type == "login") {
     const { data } = await login({
@@ -208,5 +208,47 @@ if (state.type == "login") {
     state.verify = "";
   }
 ```
-对于验证码的实现，我们设计了一个自定义的vueImgVerify验证码图片组件。
+对于验证码的实现，我们设计了一个自定义的vueImgVerify验证码图片组件。其中，使用了vant库的van-form和van-field组件来构建表单，v-model指令用于实现表单字段与state中的数据绑定，:rules属性可以设置表单字段的验证规则。
 
+``` 
+		<van-field
+          center
+          clearable
+          label="验证码"
+          placeholder="输入验证码"
+          v-model="state.verify"
+        >
+          <template #button>
+            <vue-img-verify ref="verifyRef" />
+          </template>
+        </van-field>
+```
+
+![验证码](./images/`A7DUEQQWP0SFDR3GBT3%_Y.png)
+
+
+### 首页界面
+
+![首页](./images/W_R9JU4VZ6I50JIWM0HEKR.png)
+
+
+首页的布局，包含了商城的头部、导航栏、轮播图和首页商品显示栏等内容。在头部中有一个头部搜索框和商城名称，以及用户icon,使用<router-link >  标签可以实现链接的跳转。
+新品上线商品列表，使用了van-skeleton组件展示加载状态，循环渲染state.newGoodses数组中的商品数据。每个商品都包含商品图片、商品描述和价格。热门商品和最新推荐的商品部分与新品上线的商品部分代码结构相同，只是展示的数据源不同。
+
+![router-link](./images/$UJB_ON_V7SCSYMC18T8PWS.png)
+
+引用vue nextTick（）监听页面滚动事件，当页面滚动距离超过100时，改变页面上的头部样式,实现良好的界面交互。
+
+``` 
+nextTick(() => {
+  document.body.addEventListener("scroll", () => {
+    let scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+    scrollTop > 100
+      ? (state.headerScroll = true)
+      : (state.headerScroll = false);
+  });
+});
+```
