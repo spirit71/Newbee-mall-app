@@ -171,7 +171,7 @@ Axios是一个基于Promise的HTTP客户端，用于处理与服务器的通信�
 
 #### 登录/注册界面
 
-登录和注册页面使用了Vue 3的Composition API进行开发。
+登录和注册页面使用了Vue 3的Composition API进行开发。能够根据用户的输入进行切换和提交登录或注册表单，并对验证码进行验证。
 
 ![登录](./images/XB3@ZU6M_8R5F$FU_WC6_IU.png)
 
