@@ -155,5 +155,25 @@ newbee-mall商城致力于提供以产品展示及订购为核心的在线购物
 ## 3 前端详细设计
 
 ### 3.1前台用户系统详细设计
+前台 用户系统主要使用Vue3 + Vant3 实现界面设计与交互，使用Axios库来发送HTTP请求。
+
+Axios是一个基于Promise的HTTP客户端，用于处理与服务器的通信。
+
+![Axios](./images/XCHY@KP$03ZR$}EWH2TE5_M.png)
+使用vue router实现路由的跳转和管理。
+在路由配置文件中，我们定义了很多路由路径和组件的映射关系。每个路由路径都对应一个组件，并且可以通过路由名称来访问这个路径。路由还可以通过 meta 属性来设置一些额外的信息，比如索引值。通过创建一个 Vue Router 实例，并配置了一些路由路径和对应的组件。这样，在应用中就可以使用这个路由实例来进行路由跳转和管理。
+
+![vue router](./images/TB7QLR69_4{$_NO}3WC4$GO.png)
+
+配置vant
+
+![vant](./images/1DRO%_KH0_`2LUETY%1_67L.png)
+
+#### 登录/注册界面
+
+登录和注册页面使用了Vue 3的Composition API进行开发。
+
+![登录](./images/XB3@ZU6M_8R5F$FU_WC6_IU.png)
+
 
 
