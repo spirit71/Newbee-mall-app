@@ -8,6 +8,7 @@ grammar_cjkRuby: true
 
 
 ---
+
 # 1.需求调研与分析
 
 ## 1.1项目背景
@@ -150,4 +151,9 @@ newbee-mall商城致力于提供以产品展示及订购为核心的在线购物
 前端主要技术栈：Vue3 + Vue-Router4 +Vuex4+Vant3+Axios
 
 ![项目架构图](./images/2XM8J}CXLB3VRUMY7AS_XUF.png)
+
+## 3 前端详细设计
+
+### 3.1前台用户系统详细设计
+
 
