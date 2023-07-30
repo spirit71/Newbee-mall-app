@@ -271,5 +271,5 @@ const { data } = await getHome();
 
 ```
 ### 搜索框
-
+点击搜索框跳转至product-list商品搜索列表界面，
 
