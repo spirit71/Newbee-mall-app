@@ -271,5 +271,104 @@ const { data } = await getHome();
 
 ```
 ### 搜索框
-点击搜索框跳转至product-list商品搜索列表界面，
+点击搜索框跳转至product-list商品搜索列表界面。界面包括推荐，新品，价格三种标签栏，是由van-tabs组件实现的标签栏的划分，点击标签会触发changeTab方法进而实现标签栏的切换。
 
+![搜索](./images/9CJC2BRMQ~HQQWWY`E}_J00.png)
+
+![推荐](./images/HF2@NJ34CQ1Y23H$4$`6_3O.png)
+
+![新品](./images/KB8N@CL3@VCJM3_6R`{L_HS.png)
+
+![价格](./images/@$0H{P_OC%4_O1_3`N8.png)
+
+使用van-list组件呈现商品信息，使用了v-for循环遍历了state.productList数组，并使用v-if条件语句判断state.productList数组的长度，根据不同的情况展示不同的视图。如果state.productList数组的长度大于0，表示有产品数据，就会渲染每个产品项的视图。每个产品项的视图包含了产品的图片、信息和价格。
+
+``` 
+<template v-if="state.productList.length">
+            <div
+              class="product-item"
+              v-for="(item, index) in state.productList"
+              :key="index"
+              @click="productDetail(item)"
+            >
+              <img :src="$filters.prefix(item.goodsCoverImg)" />
+              <div class="product-info">
+                <p class="name">{{ item.goodsName }}</p>
+                <p class="subtitle">{{ item.goodsIntro }}</p>
+                <span class="price">￥ {{ item.sellingPrice }}</span>
+              </div>
+            </div>
+          </template>
+```
+对于搜索页面数据的获取，首先从路由参数中获取categoryId，如果categoryId和keyword都不存在，则将state.finished设置为true，表示数据加载完成，然后返回。否则，调用search函数进行商品搜索，传入对应的参数。其中，
+pageNumber表示当前页码
+goodsCategoryId表示商品分类ID
+keyword表示搜索关键字
+orderBy表示排序方式
+通过解构赋值方式，将搜索结果的data属性和list属性保存在data和list变量中。然后将搜索结果中的商品列表(list)拼接到state.productList数组中，更新总页数(totalPage)和数据加载状态(loading)。最后，如果当前页码大于等于总页数，将state.finished设置为true。
+
+``` 
+const init = async () => {
+  const { categoryId } = route.query;
+  if (!categoryId && !state.keyword) {
+    state.finished = true;
+    state.loading = false;
+    return;
+  }
+  const {
+    data,
+    data: { list },
+  } = await search({
+    pageNumber: state.page,
+    goodsCategoryId: categoryId,
+    keyword: state.keyword,
+    orderBy: state.orderBy,
+  });
+```
+点击商品直接跳转至商品详情页面，是通过router.push方法，传入商品详情页的路径(/product/${item.goodsId})实现页面跳转。
+
+### 商品详情界面
+
+![商品详情](./images/99_K`_83SF2SQ$EFTQCBSIH.png)
+
+![添加购物车](./images/60D9WN_NT@4YLG_8_O5_RIC.png)
+
+
+定义了一个goBack方法，用于返回上一页。
+
+```
+const goBack = () => {
+  router.go(-1)
+}
+
+```
+
+定义了一个goTo方法，用于跳转到购物车页面。
+
+``` 
+const goTo = () => {
+  router.push({ path: '/cart' })
+}
+```
+
+定义了一个handleAddCart方法，用于处理添加商品到购物车的逻辑。首先调用addCart方法向后端发送请求，添加商品到购物车，然后根据接口返回的resultCode判断添加是否成功，并通过showSuccessToast方法显示添加成功的提示信息。最后，通过cart.updateCart()方法更新购物车的状态。
+
+``` 
+const handleAddCart = async () => {
+  const { resultCode } = await addCart({ goodsCount: 1, goodsId: state.detail.goodsId })
+  if (resultCode == 200) showSuccessToast('添加成功')
+  cart.updateCart()
+}
+```
+
+定义了一个goToCart方法，用于处理直接跳转到购物车页面的逻辑。首先调用addCart方法向后端发送请求，添加商品到购物车，然后通过cart.updateCart()方法更新购物车的状态，最后通过router.push方法跳转到购物车页面。
+
+``` 
+const goToCart = async () => {
+  await addCart({ goodsCount: 1, goodsId: state.detail.goodsId })
+  cart.updateCart()
+  router.push({ path: '/cart' })
+}
+```
+
+### 购物车界面
