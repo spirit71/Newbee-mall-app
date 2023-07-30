@@ -252,3 +252,24 @@ nextTick(() => {
   });
 });
 ```
+getHome 向后端发送get请求用于获取首页数据，getLocal用于获取本地存储的数据
+
+``` 
+const { data } = await getHome();
+```
+轮播图功能的实现使用了Vant UI库的Swipe（轮播）组件。
+
+``` 
+<template>
+  <!-- 该组件的autoplay属性设置为3000，表示每隔3秒自动播放一张轮播图。indicator-color属性设置了指示器的颜色为"#1baeae"。 -->
+  <van-swipe class="my-swipe" :autoplay="3000" indicator-color="#1baeae">
+    <van-swipe-item v-for="(item, index) in list" :key="index">
+      <img :src="item.carouselUrl" alt="" @click="goTo(item.redirectUrl)" />
+    </van-swipe-item>
+  </van-swipe>
+</template>
+
+```
+### 搜索框
+
+
