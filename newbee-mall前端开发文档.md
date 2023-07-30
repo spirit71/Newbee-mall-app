@@ -175,5 +175,38 @@ Axios是一个基于Promise的HTTP客户端，用于处理与服务器的通信�
 
 ![登录](./images/XB3@ZU6M_8R5F$FU_WC6_IU.png)
 
+login和register是对用户登录和注册的后端API请求封装的函数。
 
+``` 
+export function login(params) {
+  // ====params参数包含了需要提交的用户信息。
+  return axios.post('/user/login', params);
+}
+
+export function register(params) {
+  return axios.post('/user/register', params);
+}
+```
+
+登录界面对用户输入密码进行MD5解析获取。根据state.type的值来显示登录或注册内容。其中，使用了vant库的van-form和van-field组件来构建表单，v-model指令用于实现表单字段与state中的数据绑定，:rules属性可以设置表单字段的验证规则。
+``` 
+if (state.type == "login") {
+    const { data } = await login({
+      loginName: values.username,
+      passwordMd5: md5(values.password),
+    });
+    setLocal("token", data);
+    // 需要刷新页面，否则 axios.js 文件里的 token 不会被重置
+    window.location.href = "/";
+  } else {
+    await register({
+      loginName: values.username1,
+      password: values.password1,
+    });
+    showSuccessToast("注册成功");
+    state.type = "login";
+    state.verify = "";
+  }
+```
+对于验证码的实现，我们设计了一个自定义的vueImgVerify验证码图片组件。
 
