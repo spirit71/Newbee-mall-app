@@ -167,7 +167,9 @@ Axios是一个基于Promise的HTTP客户端，用于处理与服务器的通信�
 
 配置vant
 
-![vant](./images/1DRO%_KH0_`2LUETY%1_67L.png)
+
+![vant](./images/QB_PTX3O_5CBRN_$T`{KP00.png)
+
 
 #### 登录/注册界面
 
@@ -225,6 +227,7 @@ if (state.type == "login") {
 ```
 
 ![验证码](./images/`A7DUEQQWP0SFDR3GBT3%_Y.png)
+
 
 
 ### 首页界面
