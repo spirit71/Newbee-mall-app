@@ -373,4 +373,112 @@ const goToCart = async () => {
 
 ### 购物车界面
 
+![购物车](./images/W9}_7ICE0$W}QJBQ9A8S5_8.png)
 
+在购物车中，我们可以通过 Vuex 将购物车的状态（如商品列表、数量、总价等）存储在全局的购物车商店中，并在不同的组件中共享和使用这些状态。这样，无论在用户哪个组件中进行添加商品、更新购物车等操作，都能保持购物车状态的一致性，从而提供更好的购物体验。
+Vuex 的作用：Vuex 是用于管理共享状态的库，特别适用于我们大型 Vue 应用程序，可以集中管理组件之间的状态。通过 Vuex，可以将状态存储在全局 Store 中，而不是在多个组件中之间进行传递。这样可以避免状态的混乱和难以维护，同时使得状态的变更和管理更加简单和可预测。
+
+
+``` 
+const cart = useCartStore(); // 获取使用Vuex进行状态管理的购物车store
+```
+
+``` 
+export const useCartStore = defineStore("cart", () => {
+  const count = ref(0);
+  async function updateCart() {
+    const { data = [] } = await getCart();
+    count.value = data.length;
+  }
+
+  return { count, updateCart };
+});
+```
+
+
+### 地址管理
+
+![地址管理](./images/5IHWZ8K1{OU2N_F$_X~}_V.png)
+
+![新增地址](./images/%_EPH~P_A$K4~DMERCTFXG9.png)
+
+![地址管理1](./images/J_69EG3{0H}8@L$ZWS`VE_8.png)
+
+我们定义了三个事件处理函数。onAdd函数用来跳转到添加地址页面，它通过router.push方法来导航到address-edit路径，并传递相应的参数。
+
+onEdit函数用来跳转到地址编辑页面，它也通过router.push方法来导航，传递了编辑类型、地址ID和来源页面的参数。
+
+最后一个函数是select函数，它在用户选择了某个地址后被调用。它通过router.push方法跳转到订单生成页面，并传递了选择的地址ID和来源页面的参数。
+
+``` 
+
+// 前往添加地址页面
+const onAdd = () => {
+  router.push({ path: 'address-edit', query: { type: 'add', from: state.from  } })
+}
+// 前往地址编辑页面
+const onEdit = (item) => {
+  router.push({ path: 'address-edit', query: { type: 'edit', addressId: item.id, from: state.from  } })
+}
+// 选择某个地址后，跳回订单生成页面
+const select = (item, index) => {
+  router.push({ path: 'create-order', query: { addressId: item.id, from: state.from  } })
+}
+```
+
+### 生成订单
+
+![生成订单](./images/RS4D~SO6KE9V92T}J3@J4ZM.png)
+
+![支付成功](./images/0_~I4583JD29EO$%YVL_O54.png)
+
+支付窗口使用Vue.js和Vant组件库创建的弹出窗口。
+
+van-popup组件：这是一个弹出窗口组件，通过v-model:show属性来控制显示与隐藏。
+
+position="bottom"：设置弹出窗口在底部显示。
+
+:style="{ height: '24%' }"：设置弹出窗口的高度为父容器高度的24%。
+
+``` 
+  <van-popup
+      v-model:show="state.showPay"
+      position="bottom"
+      :style="{ height: '24%' }"
+    >
+      <div :style="{ width: '90%', margin: '0 auto', padding: '20px 0' }">
+        <van-button
+          :style="{ marginBottom: '10px' }"
+          color="#1989fa"
+          block
+          @click="handlePayOrder(state.detail.orderNo, 1)"
+          >支付宝支付</van-button
+        >
+        <van-button
+          color="#4fc08d"
+          block
+          @click="handlePayOrder(state.detail.orderNo, 2)"
+          >微信支付</van-button
+        >
+      </div>
+    </van-popup>
+  </div>
+  
+```
+
+通过向后端发送get请求获取订单状态，状态和下单时间等信息并通过vue和vant组件渲染到界面上。
+
+![订单详情](./images/{I{M8581_M_NC@U@L_WE_H7.png)
+
+### 我的订单
+
+用户可以通过选项卡切换不同状态的订单，下拉刷新和上拉加载更多订单数据。
+
+![我的订单](./images/~9H~DJFW%_}IY_IA`NB7EXS.png)
+
+### 账号管理
+
+
+通过向后端发送post请求可以修改用户信息。
+
+![账号管理](./images/HHW$$Z0FH6MKY4}X201VEUV.png)
