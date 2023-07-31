@@ -227,7 +227,8 @@ if (state.type == "login") {
 ```
 
 
-![验证码](./images/`A7DUEQQWP0SFDR3GBT3%_Y.png)
+![验证码 ](./images/F_33I9JWHQ@CS_FCWQWCP08.png)
+
 
 
 
