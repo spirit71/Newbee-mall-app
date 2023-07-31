@@ -226,7 +226,9 @@ if (state.type == "login") {
         </van-field>
 ```
 
+
 ![验证码](./images/`A7DUEQQWP0SFDR3GBT3%_Y.png)
+
 
 
 
